@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【修改点】项目名称 - 上海体育大学大作业展示</title>
+    
+    <!-- 引入 Bootstrap 5 CSS (无需下载，直接使用CDN) -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 自定义简单样式 (可根据喜好修改颜色) -->
+    <style>
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #2E7D32; /* 上体绿，可修改 */
+        }
+        
+        /* 首页大图区域 */
+        .hero-section {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 80px 0;
+        }
+        
+        /* 卡片悬停效果 */
+        .team-card:hover, .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        /* 章节间距 */
+        section {
+            padding: 60px 0;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 导航栏 (固定在顶部) -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <!-- 【修改点】替换为你的项目名称 -->
+            <a class="navbar-brand" href="#">RPA+Excel+FineBI 项目展示</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">项目概述</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">团队成员</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tech">技术栈</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#showcase">成果展示</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. 首页 Hero 区域 -->
+    <div class="hero-section mt-5">
+        <div class="container text-center">
+            <!-- 【修改点】替换为大标题 -->
+            <h1 class="display-4 fw-bold mb-4">基于RPA与FineBI的体育数据自动化分析平台</h1>
+            <!-- 【修改点】替换为副标题 -->
+            <p class="lead mb-5 text-muted">上海体育大学 · 计算机大作业 · 2026年度</p>
+            <a href="#about" class="btn btn-success btn-lg">查看详情</a>
+        </div>
+    </div>
+
+    <!-- 3. 项目概述 Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">项目概述</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <!-- 【修改点】替换为你的项目背景、目标、意义 -->
+                    <p class="mb-4">
+                        <strong>项目背景：</strong>在体育大数据时代，传统的Excel数据处理方式效率低下，难以满足多专业联合分析的需求。
+                    </p>
+                    <p class="mb-4">
+                        <strong>项目目标：</strong>通过RPA技术实现Excel数据的自动化清洗与录入，结合FineBI进行可视化分析，最终通过静态网页展示多维度的体育洞察。
+                    </p>
+                    <p>
+                        <strong>项目意义：</strong>整合了医技、运训、体教等8个专业的知识，探索了AI工具在体育领域的实际应用。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 团队成员 Section -->
+    <section id="team" class="bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">团队成员</h2>
+            <div class="row g-4">
+                
+                <!-- 成员卡片 1 (可复制此块增加成员) -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card team-card h-100 text-center">
+                        <!-- 【修改点】替换为头像图片 (可以放本地图片如 images/1.jpg，或使用在线占位图) -->
+                        <img src="https://placehold.co/200x200/2E7D32/FFFFFF?text=医技" class="card-img-top" alt="成员头像">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】张三</h5>
+                            <p class="card-text text-muted">专业：运动人体科学（医技）</p>
+                            <p class="card-text"><small>负责：数据采集与医学指标解读</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成员卡片 2 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card team-card h-100 text-center">
+                        <img src="https://placehold.co/200x200/FF9800/FFFFFF?text=运训" class="card-img-top" alt="成员头像">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】李四</h5>
+                            <p class="card-text text-muted">专业：运动训练</p>
+                            <p class="card-text"><small>负责：训练数据逻辑设计</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成员卡片 3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card team-card h-100 text-center">
+                        <img src="https://placehold.co/200x200/2196F3/FFFFFF?text=体教" class="card-img-top" alt="成员头像">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】王五</h5>
+                            <p class="card-text text-muted">专业：体育教育</p>
+                            <p class="card-text"><small>负责：教学场景需求分析</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成员卡片 4 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="card team-card h-100 text-center">
+                        <img src="https://placehold.co/200x200/9C27B0/FFFFFF?text=民传" class="card-img-top" alt="成员头像">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】赵六</h5>
+                            <p class="card-text text-muted">专业：民族传统体育</p>
+                            <p class="card-text"><small>负责：非遗体育数据整理</small></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 【修改点】如需更多成员，复制上面的卡片块并修改col-md-3为col-md-2或col-md-4即可 -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 技术栈 Section -->
+    <section id="tech">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">核心技术栈</h2>
+            <div class="row g-4 text-center">
+                
+                <div class="col-md-3">
+                    <div class="card tech-card h-100 border-primary">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary">RPA</h3>
+                            <p class="card-text">自动化流程机器人<br>实现Excel数据自动处理</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card tech-card h-100 border-success">
+                        <div class="card-body">
+                            <h3 class="card-title text-success">Excel</h3>
+                            <p class="card-text">数据清洗与高级函数<br>VLOOKUP/PivotTable应用</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card tech-card h-100 border-warning">
+                        <div class="card-body">
+                            <h3 class="card-title text-warning">FineBI</h3>
+                            <p class="card-text">商业智能可视化<br>拖拽式大屏与仪表盘制作</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card tech-card h-100 border-info">
+                        <div class="card-body">
+                            <h3 class="card-title text-info">HTML/CSS</h3>
+                            <p class="card-text">静态网页开发<br>Bootstrap 5 响应式布局</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 成果展示 Section -->
+    <section id="showcase" class="bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">项目成果展示</h2>
+            <div class="row g-4">
+                
+                <!-- 展示块 1 -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <!-- 【修改点】替换为你的FineBI截图或Excel图表截图 -->
+                        <img src="https://placehold.co/600x400/e0e0e0/333333?text=FineBI+Dashboard+Screenshot" class="card-img-top" alt="成果图1">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】FineBI 数据可视化大屏</h5>
+                            <p class="card-text">展示了不同专业学生体测数据的对比分析，包含雷达图、热力图等。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 展示块 2 -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <!-- 【修改点】替换为你的RPA流程截图 -->
+                        <img src="https://placehold.co/600x400/e0e0e0/333333?text=RPA+Workflow+Screenshot" class="card-img-top" alt="成果图2">
+                        <div class="card-body">
+                            <h5 class="card-title">【修改点】RPA 自动化流程演示</h5>
+                            <p class="card-text">实现了从原始CSV到标准化Excel的一键转换，效率提升80%。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. 页脚 -->
+    <footer class="text-center">
+        <div class="container">
+            <!-- 【修改点】替换为你的项目组信息 -->
+            <p class="mb-0">&copy; 2026 上海体育大学 [你的项目组名] 版权所有</p>
+            <p class="mb-0"><small>指导教师：XXX | 课程：计算机应用基础</small></p>
+        </div>
+    </footer>
+
+    <!-- 引入 Bootstrap JS (用于响应式导航栏等交互) -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
