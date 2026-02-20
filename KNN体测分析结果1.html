@@ -306,10 +306,10 @@
             resBox.innerHTML = `<strong>🏆 KNN 预测完成！</strong><br>
                                 我们在 160 条硬编码记录中寻找了距离您最近的 ${k} 个数据点<br>
                                 （投票分布：${Object.entries(counts).map(e => e[0]+' '+e[1]+'票').join('， ')}）<br>
-                                最终判断您的体测结论为：<span style="color: #dc3545; font-size: 1.5em; font-weight: 800; margin: 0 10px;"><a href="http://localhost:37799/webroot/decision/v5/design/report/0c395ebab6e2422e93b70408ce3f371d/edit" target="_blank">【${predictedLabel}】</a>
-		<a href="https://demo.fanruan.com/webroot/decision/v5/conf/subject/page/edit/b4e4e1940d9d4ed08b2d7f607417497f/report/14e178bd90324b33b6bac93af5392f6b?fine_referrer=%2Fwebroot%2Fdecision%2F" target="_blank">【${predictedLabel}】</a></span>`;
+                                最终判断您的体测结论为：<span style="color: #dc3545; font-size: 1.5em; font-weight: 800; margin: 0 10px;"><a href="https://demo.fanruan.com/webroot/decision/v5/design/report/14e178bd90324b33b6bac93af5392f6b/view" target="_blank">【${predictedLabel}】</a></span>`;
 			
         }
     </script>
 </body>
+
 </html>
