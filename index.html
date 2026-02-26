@@ -270,26 +270,29 @@ setInterval(moveDiv, 1000);
     {id: 160, gender: '女', gender_val: 0, fvc: 3200.0, speed: 8.4, jump: 206.0, endurance: 271, strength: 44.0, label: '耐力型'}
 ];
 
-        // 1. 渲染底部溯源表格 (显示与算法同步)
-        const tbody = document.getElementById('table-body');
-        trainingData.forEach(row => {
-            let tr = document.createElement('tr');
-            tr.innerHTML = `<td>${row.id}</td><td>${row.gender}</td><td>${row.fvc}</td><td>${row.speed}</td><td>${row.jump}</td><td>${row.endurance}</td><td>${row.strength}</td><td><span class="badge type-${row.label}">${row.label}</span></td>`;
-            tbody.appendChild(tr);
-        });
 
-        // 2. 根据 160 条固定数据动态获取归一化边界值
-        let minMax = {
-            fvc: {min: Infinity, max: -Infinity},
-            speed: {min: Infinity, max: -Infinity},
-            jump: {min: Infinity, max: -Infinity},
-            endurance: {min: Infinity, max: -Infinity},
-            strength: {min: Infinity, max: -Infinity}
-        };
 
+// 1. 渲染底部溯源表格 (显示与算法同步)
+const tbody = document.getElementById('table-body'); // 找到网页中表格的tbody容器
+trainingData.forEach(row => { // 遍历160条体测数据（trainingData是存储160条数据的数组）
+    let tr = document.createElement('tr'); // 为每条数据创建一行<tr>
+    // 把数据填充到<td>单元格，最后一列给体测类型加样式（比如不同颜色的标签）
+    tr.innerHTML = `<td>${row.id}</td><td>${row.gender}</td><td>${row.fvc}</td><td>${row.speed}</td><td>${row.jump}</td><td>${row.endurance}</td><td>${row.strength}</td><td><span class="badge type-${row.label}">${row.label}</span></td>`;
+    tbody.appendChild(tr); // 把这一行添加到表格里
+});
+
+// 2. 根据 160 条固定数据动态获取归一化边界值
+let minMax = { // 初始化一个对象，存储每个指标的最小值/最大值
+    fvc: {min: Infinity, max: -Infinity}, // 肺活量
+    speed: {min: Infinity, max: -Infinity}, // 50米跑
+    jump: {min: Infinity, max: -Infinity}, // 立定跳远
+    endurance: {min: Infinity, max: -Infinity}, // 耐力跑
+    strength: {min: Infinity, max: -Infinity} // 力量项目
+};
+// 遍历160条数据，找出每个指标的最小值和最大值
         trainingData.forEach(d => {
-            if(d.fvc < minMax.fvc.min) minMax.fvc.min = d.fvc;
-            if(d.fvc > minMax.fvc.max) minMax.fvc.max = d.fvc;
+            if(d.fvc < minMax.fvc.min) minMax.fvc.min = d.fvc; // 更新肺活量最小值
+            if(d.fvc > minMax.fvc.max) minMax.fvc.max = d.fvc;// 更新肺活量最大值
             if(d.speed < minMax.speed.min) minMax.speed.min = d.speed;
             if(d.speed > minMax.speed.max) minMax.speed.max = d.speed;
             if(d.jump < minMax.jump.min) minMax.jump.min = d.jump;
@@ -299,13 +302,15 @@ setInterval(moveDiv, 1000);
             if(d.strength < minMax.strength.min) minMax.strength.min = d.strength;
             if(d.strength > minMax.strength.max) minMax.strength.max = d.strength;
         });
-
-        function normalize(val, key) {
+// 归一化函数：把任意数值转换成0~1之间的数
+        function normalize(val, key) { // 公式：(当前值 - 最小值) / (最大值 - 最小值)
+    // 加 ||1 是防止分母为0（比如所有数据的某个指标都相同）
             return (val - minMax[key].min) / (minMax[key].max - minMax[key].min || 1);
         }
 
         // 3. KNN 基准修正计算
         function predictKNN() {
+          // 第一步：获取用户在网页输入的体测数据
             let userGender = parseInt(document.getElementById('gender').value);
             let userFvc = parseFloat(document.getElementById('fvc').value);
             let userSpeed = parseFloat(document.getElementById('speed').value);
@@ -314,29 +319,33 @@ setInterval(moveDiv, 1000);
             let userStrength = parseFloat(document.getElementById('strength').value);
             let k = parseInt(document.getElementById('kValue').value) || 5;
 
-            // 算法遍历且仅遍历内置的这 160 条训练数据
+            // 第二步：算法遍历且仅遍历内置的这 160 条训练数据，计算用户数据与160条基准数据的欧几里得距离
             let distances = trainingData.map(d => {
                 // 通过乘以 4 放大性别权重，由于男女体测标准差异大，使得算法寻找同性相似度的优先级最高
-                let dist = Math.sqrt(
+                let dist = Math.sqrt(  // 重点：性别权重×4（因为男女体测标准差异大，优先匹配同性）
                     Math.pow((d.gender_val - userGender), 2) * 4 + 
+                // 其他指标先归一化，再算距离
                     Math.pow(normalize(d.fvc, 'fvc') - normalize(userFvc, 'fvc'), 2) +
                     Math.pow(normalize(d.speed, 'speed') - normalize(userSpeed, 'speed'), 2) +
                     Math.pow(normalize(d.jump, 'jump') - normalize(userJump, 'jump'), 2) +
                     Math.pow(normalize(d.endurance, 'endurance') - normalize(userEndurance, 'endurance'), 2) +
                     Math.pow(normalize(d.strength, 'strength') - normalize(userStrength, 'strength'), 2)
                 );
-                return { label: d.label, distance: dist };
+                return { label: d.label, distance: dist };  // 返回：这条数据的体测类型 + 与用户的距离
             });
 
-            // 取欧几里得距离最近的 K 个样本
-            distances.sort((a, b) => a.distance - b.distance);
-            let topK = distances.slice(0, k);
+            // 第三步：按距离从小到大排序，取欧几里得距离最近的 K 个样本，即取前K个最相似的样本
+            distances.sort((a, b) => a.distance - b.distance);  // 升序排序（距离越小越靠前）
+            let topK = distances.slice(0, k);  // 截取前K个
 
-            // 少数服从多数投票机制
-            let counts = {};
-            topK.forEach(d => { counts[d.label] = (counts[d.label] || 0) + 1; });
+           // 第四步：投票机制（少数服从多数）
+            let counts = {};  // 存储每个类型的得票数
+            topK.forEach(d => { counts[d.label] = (counts[d.label] || 0) + 1; });   // 比如：耐力型得1票，力量型得2票
 
-            let predictedLabel = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            let predictedLabel = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);  // 找出得票数最多的类型，作为预测结果
+
+
+
 
             // 前端显示
             let resBox = document.getElementById('result-box');
@@ -344,10 +353,9 @@ setInterval(moveDiv, 1000);
             resBox.innerHTML = `<strong>🏆 KNN 预测完成！</strong><br>
                             我们在 160 条硬编码记录中寻找了距离您最近的 ${k} 个数据点<br>
                                 （投票分布：${Object.entries(counts).map(e => e[0]+' '+e[1]+'票').join('， ')}）<br>
-                                最终判断您的体测结论为：<span style="color: #dc3545; font-size: 1.5em; font-weight: 800; margin: 0 10px;"><a href="https://doubao.com/bot/rHwbERg6" target="_blank">【${predictedLabel}】</a></span>`;
-			</div>
-<p style="text-align: center; color: #999;">点击链接，可以和小助手对话</p>
-</div>
+                                最终判断您的体测结论为：<span style="color: #dc3545; font-size: 1.5em; font-weight: 800; margin: 0 10px;"><a href="https://doubao.com/bot/rHwbERg6" target="_blank">【${predictedLabel}】</a></span><br>
+点击结论，可与小助手沟通获取更多信息`;
+
         }
     </script>
 </body>
